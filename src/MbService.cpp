@@ -23,7 +23,7 @@ MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
   case UnknownProcedure:
     return "Unknown procedure identifier";
   case BadRequest:
-    return "Bad request";
+    return "Bad request content";
   case BadStrobeOffset:
     return "Bad strobe offset";
   case BodyNACK:
@@ -34,6 +34,8 @@ MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
     return "Bad body queue period";
   case BodyQueueFull:
     return "Body queue is full";
+  case NACK:
+    return "Bad Request";
   default:
     return "Unknown error";
   }
