@@ -182,10 +182,10 @@ size_t Version::GetPackedSize() const { return 2 * sizeof(uint8_t); }
 void BodyQueueInfo::Serialize(uint8_t *ptr) const {
   assert(ptr);
 
-  *reinterpret_cast<uint16_t *>(ptr) = NumRequests;
+  *reinterpret_cast<uint16_t *>(ptr) = Size;
   ptr += sizeof(uint16_t);
 
-  *reinterpret_cast<uint16_t *>(ptr) = NumResponces;
+  *reinterpret_cast<uint16_t *>(ptr) = Capacity;
   ptr += sizeof(uint16_t);
 }
 
@@ -194,10 +194,10 @@ BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
 
   assert(ptr);
 
-  info.NumRequests = *reinterpret_cast<const uint16_t *>(ptr);
+  info.Size = *reinterpret_cast<const uint16_t *>(ptr);
   ptr += sizeof(uint16_t);
 
-  info.NumResponces = *reinterpret_cast<const uint16_t *>(ptr);
+  info.Capacity = *reinterpret_cast<const uint16_t *>(ptr);
   ptr += sizeof(uint16_t);
 
   return info;

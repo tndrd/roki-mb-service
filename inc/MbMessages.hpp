@@ -82,8 +82,8 @@ struct Version {
 };
 
 struct BodyQueueInfo {
-  uint16_t NumRequests;
-  uint16_t NumResponces;
+  uint16_t Size;
+  uint16_t Capacity;
 
   void Serialize(uint8_t *ptr) const;
   static BodyQueueInfo Deserialize(const uint8_t *ptr);
