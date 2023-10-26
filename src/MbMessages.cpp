@@ -27,7 +27,7 @@ Empty Empty::Deserialize(const uint8_t *ptr) {
   return {};
 }
 
-size_t Empty::GetPackedSize() const { return 1; }
+size_t Empty::GetPackedSize() const { return 0; }
 
 void IMUFrameMsg::Serialize(uint8_t *ptr) const {
   assert(ptr);
