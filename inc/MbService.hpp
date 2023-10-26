@@ -37,7 +37,7 @@ public:
   struct ErrorCodes {
     using Type = uint8_t;
     static constexpr Type Success = 0;
-    
+
     static constexpr Type FrameUnavailable = 1;
     static constexpr Type UnknownProcedure = 2;
     static constexpr Type BadRequest = 3;
@@ -47,8 +47,8 @@ public:
     static constexpr Type BodyUnknownError = 7;
     static constexpr Type BadBodyQueuePeriod = 8;
     static constexpr Type BodyQueueFull = 9;
-    
-    static constexpr Type NACK = 255; 
+
+    static constexpr Type NACK = 255;
 
     static uint8_t Serialize(Type err);
     static Type Deserialize(uint8_t val);

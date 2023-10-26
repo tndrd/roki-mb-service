@@ -3,18 +3,13 @@
 namespace Roki {
 
 uint8_t MbService::ProcedureID::Serialize(Type id) { return id; }
-auto MbService::ProcedureID::Deserialize(uint8_t val) -> Type {
-  return val;
-}
+auto MbService::ProcedureID::Deserialize(uint8_t val) -> Type { return val; }
 
 uint8_t MbService::ErrorCodes::Serialize(Type err) { return err; }
-auto MbService::ErrorCodes::Deserialize(uint8_t val) -> Type {
-  return val;
-}
+auto MbService::ErrorCodes::Deserialize(uint8_t val) -> Type { return val; }
 
 // Errorcodes
-const char *
-MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
+const char *MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
   switch (errCode) {
   case Success:
     return "Success";
