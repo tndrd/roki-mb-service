@@ -3,6 +3,7 @@
 #include <array>
 #include <assert.h>
 #include <memory.h>
+#include <stdint.h>
 
 namespace Roki {
 namespace Messages {
