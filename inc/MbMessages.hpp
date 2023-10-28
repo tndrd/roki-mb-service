@@ -109,6 +109,15 @@ struct BodyRequest {
   size_t GetPackedSize() const;
 };
 
+struct BodyQueueRequest {
+  uint8_t Pause;
+  BodyRequest Request;
+
+  void Serialize(uint8_t* ptr) const;
+  static BodyQueueRequest Deserialize(const uint8_t* ptr);
+  size_t GetPackedSize() const;
+};
+
 struct BodyResponce {
   const uint8_t *Data;
   uint8_t ResponceSize;

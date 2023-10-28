@@ -149,7 +149,7 @@ public:
     struct BodySendQueue : public Procedure {
       static constexpr ProcedureID::Type ID = ProcedureID::BodySendQueue;
 
-      using RequestType = Messages::BodyRequest;
+      using RequestType = Messages::BodyQueueRequest;
       using ResponceType = Messages::Empty;
     };
 

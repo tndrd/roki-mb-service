@@ -265,5 +265,24 @@ size_t BodyResponce::GetPackedSize() const {
   return (1 + ResponceSize) * sizeof(uint8_t);
 }
 
+void BodyQueueRequest::Serialize(uint8_t* ptr) const {
+  assert(ptr);
+  *ptr = Pause;
+  Request.Serialize(ptr + 1);
+}
+
+BodyQueueRequest BodyQueueRequest::Deserialize(const uint8_t* ptr) {
+  BodyQueueRequest request;
+  request.Pause = *ptr;
+
+  request.Request = BodyRequest::Deserialize(ptr + 1);
+
+  return request;
+}
+
+size_t BodyQueueRequest::GetPackedSize() const {
+  return 1 + Request.GetPackedSize();
+}
+
 } // namespace Messages
 } // namespace Roki
