@@ -29,6 +29,7 @@ public:
     static constexpr Type BodySendQueue = 13;
     static constexpr Type GetBodyQueueInfo = 14;
     static constexpr Type SetBodyQueuePeriod = 15;
+    static constexpr Type ResetBodyQueue = 16;
 
     static uint8_t Serialize(Type id);
     static Type Deserialize(uint8_t val);
@@ -164,6 +165,13 @@ public:
       static constexpr ProcedureID::Type ID = ProcedureID::SetBodyQueuePeriod;
 
       using RequestType = Messages::PeriodMs;
+      using ResponceType = Messages::Empty;
+    };
+
+    struct ResetBodyQueue: public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::ResetBodyQueue;
+
+      using RequestType = Messages::Empty;
       using ResponceType = Messages::Empty;
     };
   };
