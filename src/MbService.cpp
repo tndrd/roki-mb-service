@@ -1,6 +1,6 @@
 #include "roki-mb-service/MbService.hpp"
 
-namespace Roki {
+namespace MbInterface {
 
 uint8_t MbService::ProcedureID::Serialize(Type id) { return id; }
 auto MbService::ProcedureID::Deserialize(uint8_t val) -> Type { return val; }
@@ -36,4 +36,4 @@ const char *MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
   }
 }
 
-} // namespace Roki
+} // namespace MbInterface

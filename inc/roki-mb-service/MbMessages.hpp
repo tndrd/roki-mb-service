@@ -5,7 +5,7 @@
 #include <memory.h>
 #include <stdint.h>
 
-namespace Roki {
+namespace MbInterface {
 namespace Messages {
 
 struct IMUFrameMsg {
@@ -113,8 +113,8 @@ struct BodyQueueRequest {
   uint8_t Pause;
   BodyRequest Request;
 
-  void Serialize(uint8_t* ptr) const;
-  static BodyQueueRequest Deserialize(const uint8_t* ptr);
+  void Serialize(uint8_t *ptr) const;
+  static BodyQueueRequest Deserialize(const uint8_t *ptr);
   size_t GetPackedSize() const;
 };
 
@@ -128,4 +128,4 @@ struct BodyResponce {
 };
 
 } // namespace Messages
-} // namespace Roki
+} // namespace MbInterface

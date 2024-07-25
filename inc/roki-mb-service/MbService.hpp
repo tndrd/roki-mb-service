@@ -2,7 +2,7 @@
 
 #include "roki-mb-service/MbMessages.hpp"
 
-namespace Roki {
+namespace MbInterface {
 struct MbService {
 public:
   struct ProcedureID {
@@ -168,7 +168,7 @@ public:
       using ResponceType = Messages::Empty;
     };
 
-    struct ResetBodyQueue: public Procedure {
+    struct ResetBodyQueue : public Procedure {
       static constexpr ProcedureID::Type ID = ProcedureID::ResetBodyQueue;
 
       using RequestType = Messages::Empty;
@@ -176,4 +176,4 @@ public:
     };
   };
 };
-} // namespace Roki
+} // namespace MbInterface

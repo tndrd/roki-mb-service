@@ -1,6 +1,6 @@
 #include "roki-mb-service/MbMessages.hpp"
 
-namespace Roki {
+namespace MbInterface {
 namespace Messages {
 
 void Byte::Serialize(uint8_t *ptr) const {
@@ -265,13 +265,13 @@ size_t BodyResponce::GetPackedSize() const {
   return (1 + ResponceSize) * sizeof(uint8_t);
 }
 
-void BodyQueueRequest::Serialize(uint8_t* ptr) const {
+void BodyQueueRequest::Serialize(uint8_t *ptr) const {
   assert(ptr);
   *ptr = Pause;
   Request.Serialize(ptr + 1);
 }
 
-BodyQueueRequest BodyQueueRequest::Deserialize(const uint8_t* ptr) {
+BodyQueueRequest BodyQueueRequest::Deserialize(const uint8_t *ptr) {
   BodyQueueRequest request;
   request.Pause = *ptr;
 
@@ -285,4 +285,4 @@ size_t BodyQueueRequest::GetPackedSize() const {
 }
 
 } // namespace Messages
-} // namespace Roki
+} // namespace MbInterface
