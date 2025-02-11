@@ -37,6 +37,7 @@ public:
     static constexpr Type DisableBodyARQ = 19;
 
     static constexpr Type SetBodyStrobeCallback = 20;
+    static constexpr Type ResetBodyStrobeCallback = 21;
 
     static uint8_t Serialize(Type id);
     static Type Deserialize(uint8_t val);
@@ -208,6 +209,13 @@ public:
       static constexpr ProcedureID::Type ID = ProcedureID::SetBodyStrobeCallback;
 
       using RequestType = Messages::BodyRequest;
+      using ResponceType = Messages::Empty;
+    };
+
+    struct ResetBodyStrobeCallback: public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::ResetBodyStrobeCallback;
+
+      using RequestType = Messages::Empty;
       using ResponceType = Messages::Empty;
     };
   };
