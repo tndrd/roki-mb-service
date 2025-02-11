@@ -31,6 +31,9 @@ public:
     static constexpr Type SetBodyQueuePeriod = 15;
     static constexpr Type ResetBodyQueue = 16;
 
+    static constexpr Type ConfigureBodyIO = 17;
+    static constexpr Type SetBodyStrobeCallback = 18;
+
     static uint8_t Serialize(Type id);
     static Type Deserialize(uint8_t val);
   };
@@ -50,6 +53,7 @@ public:
     static constexpr Type BodyQueueFull = 9;
 
     static constexpr Type NACK = 255;
+    static constexpr Type BodyNotInit = 10;
 
     static uint8_t Serialize(Type err);
     static Type Deserialize(uint8_t val);
@@ -172,6 +176,20 @@ public:
       static constexpr ProcedureID::Type ID = ProcedureID::ResetBodyQueue;
 
       using RequestType = Messages::Empty;
+      using ResponceType = Messages::Empty;
+    };
+
+    struct ConfigureBodyIO : public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::ConfigureBodyIO;
+
+      using RequestType = Messages::BodyConfigureRequest;
+      using ResponceType = Messages::Empty; 
+    };
+
+    struct SetBodyStrobeCallback: public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::SetBodyStrobeCallback;
+
+      using RequestType = Messages::BodyRequest; // Zero-size means no callback
       using ResponceType = Messages::Empty;
     };
   };

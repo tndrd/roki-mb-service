@@ -284,5 +284,31 @@ size_t BodyQueueRequest::GetPackedSize() const {
   return 1 + Request.GetPackedSize();
 }
 
+void BodyConfigureRequest::Serialize(uint8_t *ptr) const {
+  assert(ptr);
+  assert(NACK.GetPackedSize() + 16 < 256 && "NACK is too big to fit");
+
+  NACK.Serialize(ptr);
+  ptr += NACK.GetPackedSize();
+
+  AttemptC.Serialize(ptr++);
+  TimeoutMS.Serialize(ptr);
+}
+
+size_t BodyConfigureRequest::GetPackedSize() const {
+  return NACK.GetPackedSize() + 2;
+}
+
+BodyConfigureRequest BodyConfigureRequest::Deserialize(const uint8_t *ptr) {
+  BodyConfigureRequest request;
+  request.NACK = BodyResponce::Deserialize(ptr);
+  ptr += request.NACK.GetPackedSize();
+
+  request.AttemptC = Byte::Deserialize(ptr++);
+  request.TimeoutMS = Byte::Deserialize(ptr);
+
+  return request;
+}
+
 } // namespace Messages
 } // namespace MbInterface

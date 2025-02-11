@@ -127,5 +127,15 @@ struct BodyResponce {
   size_t GetPackedSize() const;
 };
 
+struct BodyConfigureRequest {
+  BodyResponce NACK; // zero-size means no NACK strategy
+  Byte AttemptC;
+  Byte TimeoutMS;
+
+  void Serialize(uint8_t* ptr) const;
+  static BodyConfigureRequest Deserialize(const uint8_t * ptr);
+  size_t GetPackedSize() const;
+};
+
 } // namespace Messages
 } // namespace MbInterface

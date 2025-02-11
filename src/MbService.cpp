@@ -30,7 +30,9 @@ const char *MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
   case BodyQueueFull:
     return "Body queue is full";
   case NACK:
-    return "Bad Request";
+    return "Motherboard busy";
+  case BodyNotInit:
+    return "BodyIO is not configured yet";
   default:
     return "Unknown error";
   }
