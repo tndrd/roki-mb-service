@@ -31,8 +31,12 @@ public:
     static constexpr Type SetBodyQueuePeriod = 15;
     static constexpr Type ResetBodyQueue = 16;
 
-    static constexpr Type ConfigureBodyIO = 17;
-    static constexpr Type SetBodyStrobeCallback = 18;
+    static constexpr Type SetBodyTimeout = 17;
+    
+    static constexpr Type EnableBodyARQ = 17;
+    static constexpr Type DisableBodyARQ = 18;
+
+    static constexpr Type SetBodyStrobeCallback = 19;
 
     static uint8_t Serialize(Type id);
     static Type Deserialize(uint8_t val);
@@ -179,17 +183,31 @@ public:
       using ResponceType = Messages::Empty;
     };
 
-    struct ConfigureBodyIO : public Procedure {
-      static constexpr ProcedureID::Type ID = ProcedureID::ConfigureBodyIO;
+    struct SetBodyTimeout : public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::SetBodyTimeout;
 
-      using RequestType = Messages::BodyConfigureRequest;
-      using ResponceType = Messages::Empty; 
+      using RequestType = Messages::Byte;
+      using ResponceType = Messages::Empty;
+    };
+
+    struct EnableBodyARQ : public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::EnableBodyARQ;
+
+      using RequestType = Messages::BodyARQConfig;
+      using ResponceType = Messages::Empty;
+    };
+
+    struct DisableBodyARQ : public Procedure {
+      static constexpr ProcedureID::Type ID = ProcedureID::DisableBodyARQ;
+
+      using RequestType = Messages::Empty;
+      using ResponceType = Messages::Empty;
     };
 
     struct SetBodyStrobeCallback: public Procedure {
       static constexpr ProcedureID::Type ID = ProcedureID::SetBodyStrobeCallback;
 
-      using RequestType = Messages::BodyRequest; // Zero-size means no callback
+      using RequestType = Messages::BodyRequest;
       using ResponceType = Messages::Empty;
     };
   };
