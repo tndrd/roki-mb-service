@@ -33,10 +33,10 @@ public:
 
     static constexpr Type SetBodyTimeout = 17;
     
-    static constexpr Type EnableBodyARQ = 17;
-    static constexpr Type DisableBodyARQ = 18;
+    static constexpr Type EnableBodyARQ = 18;
+    static constexpr Type DisableBodyARQ = 19;
 
-    static constexpr Type SetBodyStrobeCallback = 19;
+    static constexpr Type SetBodyStrobeCallback = 20;
 
     static uint8_t Serialize(Type id);
     static Type Deserialize(uint8_t val);
