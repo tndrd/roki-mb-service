@@ -187,6 +187,8 @@ void BodyQueueInfo::Serialize(uint8_t *ptr) const {
 
   *reinterpret_cast<uint16_t *>(ptr) = Capacity;
   ptr += sizeof(uint16_t);
+
+  *reinterpret_cast<uint8_t *>(ptr) = Active;
 }
 
 BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
@@ -200,10 +202,12 @@ BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
   info.Capacity = *reinterpret_cast<const uint16_t *>(ptr);
   ptr += sizeof(uint16_t);
 
+  info.Active = *reinterpret_cast<const uint8_t *>(ptr);
+
   return info;
 }
 
-size_t BodyQueueInfo::GetPackedSize() const { return 2 * sizeof(uint16_t); }
+size_t BodyQueueInfo::GetPackedSize() const { return 2 * sizeof(uint16_t) + 1; }
 
 void PeriodMs::Serialize(uint8_t *ptr) const {
   assert(ptr);
@@ -303,6 +307,21 @@ BodyARQConfig BodyARQConfig::Deserialize(const uint8_t *ptr) {
   request.AttemptC = Byte::Deserialize(ptr++);
   return request;
 }
+
+void Word::Serialize(uint8_t *ptr) const {
+  assert(ptr);
+  *reinterpret_cast<uint16_t *>(ptr) = Value;
+}
+
+Word Word::Deserialize(const uint8_t *ptr) {
+  assert(ptr);
+  Word word;
+
+  word.Value = *reinterpret_cast<const uint16_t *>(ptr);
+  return word;
+}
+
+size_t Word::GetPackedSize() const { return 2; }
 
 } // namespace Messages
 } // namespace MbInterface

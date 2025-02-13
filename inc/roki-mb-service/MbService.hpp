@@ -187,7 +187,7 @@ public:
     struct SetBodyTimeout : public Procedure {
       static constexpr ProcedureID::Type ID = ProcedureID::SetBodyTimeout;
 
-      using RequestType = Messages::Byte;
+      using RequestType = Messages::Word;
       using ResponceType = Messages::Empty;
     };
 
@@ -218,6 +218,7 @@ public:
       using RequestType = Messages::Empty;
       using ResponceType = Messages::Empty;
     };
+
   };
 };
 } // namespace MbInterface

@@ -84,6 +84,7 @@ struct Version {
 struct BodyQueueInfo {
   uint16_t Size;
   uint16_t Capacity;
+  uint8_t Active;
 
   void Serialize(uint8_t *ptr) const;
   static BodyQueueInfo Deserialize(const uint8_t *ptr);
@@ -135,6 +136,15 @@ struct BodyARQConfig {
   static BodyARQConfig Deserialize(const uint8_t * ptr);
   size_t GetPackedSize() const;
 };
+
+struct Word {
+  uint16_t Value;
+
+  void Serialize(uint8_t* ptr) const;
+  static Word Deserialize(const uint8_t* ptr);
+  size_t GetPackedSize() const;
+};
+
 
 } // namespace Messages
 } // namespace MbInterface
