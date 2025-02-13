@@ -35,6 +35,7 @@ struct FrameContainerInfo {
   uint16_t First;
   uint16_t NumAv;
   uint16_t MaxFrames;
+  uint8_t Active;
 
   void Serialize(uint8_t *ptr) const;
   static FrameContainerInfo Deserialize(const uint8_t *ptr);
@@ -84,7 +85,6 @@ struct Version {
 struct BodyQueueInfo {
   uint16_t Size;
   uint16_t Capacity;
-  uint8_t Active;
 
   void Serialize(uint8_t *ptr) const;
   static BodyQueueInfo Deserialize(const uint8_t *ptr);

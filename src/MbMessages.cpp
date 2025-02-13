@@ -105,6 +105,9 @@ void FrameContainerInfo::Serialize(uint8_t *ptr) const {
 
   *reinterpret_cast<uint16_t *>(ptr) = MaxFrames;
   ptr += sizeof(uint16_t);
+
+  *reinterpret_cast<uint8_t*>(ptr) = Active;
+  ptr += sizeof(uint8_t);
 }
 
 FrameContainerInfo FrameContainerInfo::Deserialize(const uint8_t *ptr) {
@@ -121,11 +124,14 @@ FrameContainerInfo FrameContainerInfo::Deserialize(const uint8_t *ptr) {
   info.MaxFrames = *reinterpret_cast<const uint16_t *>(ptr);
   ptr += sizeof(uint16_t);
 
+  info.Active = *reinterpret_cast<const uint8_t*>(ptr);
+  ptr += sizeof(uint8_t);
+
   return info;
 }
 
 size_t FrameContainerInfo::GetPackedSize() const {
-  return 3 * sizeof(uint16_t);
+  return 3 * sizeof(uint16_t) + 1;
 }
 
 void FrameNumber::Serialize(uint8_t *ptr) const {
@@ -187,8 +193,6 @@ void BodyQueueInfo::Serialize(uint8_t *ptr) const {
 
   *reinterpret_cast<uint16_t *>(ptr) = Capacity;
   ptr += sizeof(uint16_t);
-
-  *reinterpret_cast<uint8_t *>(ptr) = Active;
 }
 
 BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
@@ -202,12 +206,10 @@ BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
   info.Capacity = *reinterpret_cast<const uint16_t *>(ptr);
   ptr += sizeof(uint16_t);
 
-  info.Active = *reinterpret_cast<const uint8_t *>(ptr);
-
   return info;
 }
 
-size_t BodyQueueInfo::GetPackedSize() const { return 2 * sizeof(uint16_t) + 1; }
+size_t BodyQueueInfo::GetPackedSize() const { return 2 * sizeof(uint16_t); }
 
 void PeriodMs::Serialize(uint8_t *ptr) const {
   assert(ptr);
