@@ -21,6 +21,8 @@ const char *MbService::ErrorCodes::GetDescription(ErrorCodes::Type errCode) {
     return "Bad request content";
   case BadStrobeOffset:
     return "Bad strobe offset";
+  case BodyTimeout:
+    return "Body timeout";
   case BodyNACK:
     return "Command refused by body";
   case BodyUnknownError:
