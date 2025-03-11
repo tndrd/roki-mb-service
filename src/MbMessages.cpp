@@ -325,5 +325,68 @@ Word Word::Deserialize(const uint8_t *ptr) {
 
 size_t Word::GetPackedSize() const { return 2; }
 
+
+void DWord::Serialize(uint8_t *ptr) const {
+  assert(ptr);
+  *reinterpret_cast<uint32_t *>(ptr) = Value;
+}
+
+DWord DWord::Deserialize(const uint8_t *ptr) {
+  assert(ptr);
+  DWord word;
+
+  word.Value = *reinterpret_cast<const uint32_t *>(ptr);
+  return word;
+}
+
+size_t DWord::GetPackedSize() const { return 4; }
+
+
+void BodyUARTConfig::Serialize(uint8_t * ptr) const {
+  assert(ptr);
+
+  Baudrate.Serialize(ptr);
+  ptr += Baudrate.GetPackedSize();
+
+  Parity.Serialize(ptr);
+  ptr += Parity.GetPackedSize();
+
+  ByteSize.Serialize(ptr);
+  ptr += ByteSize.GetPackedSize();
+
+  StopBits.Serialize(ptr);
+  ptr += StopBits.GetPackedSize();
+
+  TimeoutMs.Serialize(ptr);
+  ptr += TimeoutMs.GetPackedSize();
+}
+
+BodyUARTConfig BodyUARTConfig::Deserialize(const uint8_t * ptr) {
+  assert(ptr);
+
+  BodyUARTConfig conf;
+
+  conf.Baudrate = DWord::Deserialize(ptr);
+  ptr += conf.Baudrate.GetPackedSize();
+
+  conf.Parity = Byte::Deserialize(ptr);
+  ptr += conf.Parity.GetPackedSize();
+
+  conf.ByteSize = Byte::Deserialize(ptr);
+  ptr += conf.ByteSize.GetPackedSize();
+
+  conf.StopBits = Byte::Deserialize(ptr);
+  ptr += conf.StopBits.GetPackedSize();
+
+  conf.TimeoutMs = Word::Deserialize(ptr);
+  ptr += conf.TimeoutMs.GetPackedSize();
+
+  return conf;
+}
+
+size_t BodyUARTConfig::GetPackedSize() const {
+  return 4 + 2 + 1 * 3;
+}
+
 } // namespace Messages
 } // namespace MbInterface

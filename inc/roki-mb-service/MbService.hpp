@@ -184,10 +184,10 @@ public:
       using ResponceType = Messages::Empty;
     };
 
-    struct SetBodyTimeout : public Procedure {
+    struct ConfigureBodyUART : public Procedure {
       static constexpr ProcedureID::Type ID = ProcedureID::SetBodyTimeout;
 
-      using RequestType = Messages::Word;
+      using RequestType = Messages::BodyUARTConfig;
       using ResponceType = Messages::Empty;
     };
 

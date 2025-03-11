@@ -145,6 +145,31 @@ struct Word {
   size_t GetPackedSize() const;
 };
 
+struct DWord {
+  uint32_t Value;
+
+  void Serialize(uint8_t* ptr) const;
+  static DWord Deserialize(const uint8_t* ptr);
+  size_t GetPackedSize() const;
+};
+
+struct BodyUARTConfig {
+  struct ParityVal {
+    static constexpr uint8_t None = 0; 
+    static constexpr uint8_t Even = 1; 
+    static constexpr uint8_t Odd = 2; 
+  };
+
+  DWord Baudrate;
+  Byte Parity;
+  Byte ByteSize; // Including parity
+  Byte StopBits;
+  Word TimeoutMs;
+
+  void Serialize(uint8_t* ptr) const;
+  static BodyUARTConfig Deserialize(const uint8_t* ptr);
+  size_t GetPackedSize() const;
+};
 
 } // namespace Messages
 } // namespace MbInterface
