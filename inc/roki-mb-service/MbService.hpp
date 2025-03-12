@@ -31,7 +31,7 @@ public:
     static constexpr Type SetBodyQueuePeriod = 15;
     static constexpr Type ResetBodyQueue = 16;
 
-    static constexpr Type SetBodyTimeout = 17;
+    static constexpr Type ConfigureBodyUART = 17;
     
     static constexpr Type EnableBodyARQ = 18;
     static constexpr Type DisableBodyARQ = 19;
@@ -185,7 +185,7 @@ public:
     };
 
     struct ConfigureBodyUART : public Procedure {
-      static constexpr ProcedureID::Type ID = ProcedureID::SetBodyTimeout;
+      static constexpr ProcedureID::Type ID = ProcedureID::ConfigureBodyUART;
 
       using RequestType = Messages::BodyUARTConfig;
       using ResponceType = Messages::Empty;
