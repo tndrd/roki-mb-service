@@ -4,284 +4,312 @@ namespace Roki {
 namespace Messages {
 
 void Byte::Serialize(uint8_t *ptr) const {
-  assert(ptr);
+	assert(ptr);
 
-  *ptr = Value;
+	*ptr = Value;
 }
 
 Byte Byte::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
+	assert(ptr);
 
-  Byte byte;
-  byte.Value = *ptr;
+	Byte byte;
+	byte.Value = *ptr;
 
-  return byte;
+	return byte;
 }
 
-size_t Byte::GetPackedSize() const { return 1; }
+size_t Byte::GetPackedSize() const {
+	return 1;
+}
 
-void Empty::Serialize(uint8_t *ptr) const { assert(ptr); }
+void Empty::Serialize(uint8_t *ptr) const {
+	assert(ptr);
+}
 
 Empty Empty::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
-  return {};
+	assert(ptr);
+	return {};
 }
 
-size_t Empty::GetPackedSize() const { return 0; }
+size_t Empty::GetPackedSize() const {
+	return 0;
+}
 
 void IMUFrameMsg::Serialize(uint8_t *ptr) const {
-  assert(ptr);
-  auto &qt = Orientation;
-  auto &ts = Timestamp;
+	assert(ptr);
+	auto &qt = Orientation;
+	auto &ts = Timestamp;
 
-  *reinterpret_cast<int16_t *>(ptr) = qt.X;
-  ptr += sizeof(int16_t);
+	*reinterpret_cast<int16_t*>(ptr) = qt.X;
+	ptr += sizeof(int16_t);
 
-  *reinterpret_cast<int16_t *>(ptr) = qt.Y;
-  ptr += sizeof(int16_t);
+	*reinterpret_cast<int16_t*>(ptr) = qt.Y;
+	ptr += sizeof(int16_t);
 
-  *reinterpret_cast<int16_t *>(ptr) = qt.Z;
-  ptr += sizeof(int16_t);
+	*reinterpret_cast<int16_t*>(ptr) = qt.Z;
+	ptr += sizeof(int16_t);
 
-  *reinterpret_cast<int16_t *>(ptr) = qt.W;
-  ptr += sizeof(int16_t);
+	*reinterpret_cast<int16_t*>(ptr) = qt.W;
+	ptr += sizeof(int16_t);
 
-  *reinterpret_cast<uint32_t *>(ptr) = ts.TimeS;
-  ptr += sizeof(uint32_t);
+	*reinterpret_cast<uint32_t*>(ptr) = ts.TimeS;
+	ptr += sizeof(uint32_t);
 
-  *reinterpret_cast<uint32_t *>(ptr) = ts.TimeNS;
-  ptr += sizeof(uint32_t);
+	*reinterpret_cast<uint32_t*>(ptr) = ts.TimeNS;
+	ptr += sizeof(uint32_t);
 
-  *reinterpret_cast<uint8_t *>(ptr) = SensorID;
-  ptr += sizeof(uint8_t);
+	*reinterpret_cast<uint8_t*>(ptr) = SensorID;
+	ptr += sizeof(uint8_t);
 }
 
 IMUFrameMsg IMUFrameMsg::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
+	assert(ptr);
 
-  IMUFrameMsg fr;
-  // cppcheck-suppress uninitStructMember
-  auto &qt = fr.Orientation;
+	IMUFrameMsg fr;
+	// cppcheck-suppress uninitStructMember
+	auto &qt = fr.Orientation;
 
-  // cppcheck-suppress uninitStructMember
-  auto &ts = fr.Timestamp;
+	// cppcheck-suppress uninitStructMember
+	auto &ts = fr.Timestamp;
 
-  qt.X = *reinterpret_cast<const int16_t *>(ptr);
-  ptr += sizeof(int16_t);
+	qt.X = *reinterpret_cast<const int16_t*>(ptr);
+	ptr += sizeof(int16_t);
 
-  qt.Y = *reinterpret_cast<const int16_t *>(ptr);
-  ptr += sizeof(int16_t);
+	qt.Y = *reinterpret_cast<const int16_t*>(ptr);
+	ptr += sizeof(int16_t);
 
-  qt.Z = *reinterpret_cast<const int16_t *>(ptr);
-  ptr += sizeof(int16_t);
+	qt.Z = *reinterpret_cast<const int16_t*>(ptr);
+	ptr += sizeof(int16_t);
 
-  qt.W = *reinterpret_cast<const int16_t *>(ptr);
-  ptr += sizeof(int16_t);
+	qt.W = *reinterpret_cast<const int16_t*>(ptr);
+	ptr += sizeof(int16_t);
 
-  ts.TimeS = *reinterpret_cast<const uint32_t *>(ptr);
-  ptr += sizeof(uint32_t);
+	ts.TimeS = *reinterpret_cast<const uint32_t*>(ptr);
+	ptr += sizeof(uint32_t);
 
-  ts.TimeNS = *reinterpret_cast<const uint32_t *>(ptr);
-  ptr += sizeof(uint32_t);
+	ts.TimeNS = *reinterpret_cast<const uint32_t*>(ptr);
+	ptr += sizeof(uint32_t);
 
-  fr.SensorID = *reinterpret_cast<const uint8_t *>(ptr);
-  ptr += sizeof(uint8_t);
+	fr.SensorID = *reinterpret_cast<const uint8_t*>(ptr);
+	ptr += sizeof(uint8_t);
 
-  return fr;
+	return fr;
 }
 
 size_t IMUFrameMsg::GetPackedSize() const {
-  return 4 * sizeof(int16_t) + 2 * sizeof(uint32_t) + sizeof(uint8_t);
+	return 4 * sizeof(int16_t) + 2 * sizeof(uint32_t) + sizeof(uint8_t);
 }
 
 void FrameContainerInfo::Serialize(uint8_t *ptr) const {
-  assert(ptr);
+	assert(ptr);
 
-  *reinterpret_cast<uint16_t *>(ptr) = First;
-  ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint16_t*>(ptr) = First;
+	ptr += sizeof(uint16_t);
 
-  *reinterpret_cast<uint16_t *>(ptr) = NumAv;
-  ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint16_t*>(ptr) = NumAv;
+	ptr += sizeof(uint16_t);
 
-  *reinterpret_cast<uint16_t *>(ptr) = MaxFrames;
-  ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint16_t*>(ptr) = MaxFrames;
+	ptr += sizeof(uint16_t);
 }
 
 FrameContainerInfo FrameContainerInfo::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
+	assert(ptr);
 
-  FrameContainerInfo info;
+	FrameContainerInfo info;
 
-  info.First = *reinterpret_cast<const uint16_t *>(ptr);
-  ptr += sizeof(uint16_t);
+	info.First = *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
 
-  info.NumAv = *reinterpret_cast<const uint16_t *>(ptr);
-  ptr += sizeof(uint16_t);
+	info.NumAv = *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
 
-  info.MaxFrames = *reinterpret_cast<const uint16_t *>(ptr);
-  ptr += sizeof(uint16_t);
+	info.MaxFrames = *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
 
-  return info;
+	return info;
 }
 
 size_t FrameContainerInfo::GetPackedSize() const {
-  return 3 * sizeof(uint16_t);
+	return 3 * sizeof(uint16_t);
 }
 
 void FrameNumber::Serialize(uint8_t *ptr) const {
-  assert(ptr);
-  *reinterpret_cast<uint16_t *>(ptr) = Seq;
+	assert(ptr);
+	*reinterpret_cast<uint16_t*>(ptr) = Seq;
 }
 
 FrameNumber FrameNumber::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
-  FrameNumber seq;
-  seq.Seq = *reinterpret_cast<const uint16_t *>(ptr);
+	assert(ptr);
+	FrameNumber seq;
+	seq.Seq = *reinterpret_cast<const uint16_t*>(ptr);
 
-  return seq;
+	return seq;
 }
 
-size_t FrameNumber::GetPackedSize() const { return sizeof(uint16_t); }
+size_t FrameNumber::GetPackedSize() const {
+	return sizeof(uint16_t);
+}
 
 void StrobeFilterConfig::Serialize(uint8_t *ptr) const {
-  assert(ptr);
-  ptr[0] = TargetDuration;
-  ptr[1] = DurationThreshold;
+	assert(ptr);
+	ptr[0] = TargetDuration;
+	ptr[1] = DurationThreshold;
 }
 
 StrobeFilterConfig StrobeFilterConfig::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
+	assert(ptr);
 
-  StrobeFilterConfig conf;
-  conf.TargetDuration = ptr[0];
-  conf.DurationThreshold = ptr[1];
+	StrobeFilterConfig conf;
+	conf.TargetDuration = ptr[0];
+	conf.DurationThreshold = ptr[1];
 
-  return conf;
+	return conf;
 }
 
-size_t StrobeFilterConfig::GetPackedSize() const { return 2 * sizeof(uint8_t); }
+size_t StrobeFilterConfig::GetPackedSize() const {
+	return 2 * sizeof(uint8_t);
+}
 
 void Version::Serialize(uint8_t *ptr) const {
-  assert(ptr);
+	assert(ptr);
 
-  ptr[0] = Major;
-  ptr[1] = Minor;
+	ptr[0] = Major;
+	ptr[1] = Minor;
 }
 
 Version Version::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
-  Version version;
-  version.Major = ptr[0];
-  version.Minor = ptr[1];
+	assert(ptr);
+	Version version;
+	version.Major = ptr[0];
+	version.Minor = ptr[1];
 
-  return version;
+	return version;
 }
 
-size_t Version::GetPackedSize() const { return 2 * sizeof(uint8_t); }
+size_t Version::GetPackedSize() const {
+	return 2 * sizeof(uint8_t);
+}
 
 void BodyQueueInfo::Serialize(uint8_t *ptr) const {
-  assert(ptr);
+	assert(ptr);
 
-  *reinterpret_cast<uint16_t *>(ptr) = Size;
-  ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint16_t*>(ptr) = Size;
+	ptr += sizeof(uint16_t);
 
-  *reinterpret_cast<uint16_t *>(ptr) = Capacity;
-  ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint16_t*>(ptr) = Capacity;
+	ptr += sizeof(uint16_t);
+
+	*reinterpret_cast<uint16_t*>(ptr) = NSent;
+	ptr += sizeof(uint16_t);
+
+	*reinterpret_cast<uint16_t*>(ptr) = NResends;
+	ptr += sizeof(uint16_t);
 }
 
 BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
-  BodyQueueInfo info;
+	BodyQueueInfo info;
 
-  assert(ptr);
+	assert(ptr);
 
-  info.Size = *reinterpret_cast<const uint16_t *>(ptr);
-  ptr += sizeof(uint16_t);
+	info.Size = *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
 
-  info.Capacity = *reinterpret_cast<const uint16_t *>(ptr);
-  ptr += sizeof(uint16_t);
+	info.Capacity = *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
 
-  return info;
+	info.NSent= *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
+
+	info.NResends = *reinterpret_cast<const uint16_t*>(ptr);
+	ptr += sizeof(uint16_t);
+
+	return info;
 }
 
-size_t BodyQueueInfo::GetPackedSize() const { return 2 * sizeof(uint16_t); }
+size_t BodyQueueInfo::GetPackedSize() const {
+	return 4 * sizeof(uint16_t);
+}
 
 void PeriodMs::Serialize(uint8_t *ptr) const {
-  assert(ptr);
-  *ptr = Ms;
+	assert(ptr);
+	*ptr = Ms;
 }
 
 PeriodMs PeriodMs::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
-  PeriodMs period;
+	assert(ptr);
+	PeriodMs period;
 
-  period.Ms = *ptr;
+	period.Ms = *ptr;
 
-  return period;
+	return period;
 }
 
-size_t PeriodMs::GetPackedSize() const { return sizeof(uint8_t); }
+size_t PeriodMs::GetPackedSize() const {
+	return sizeof(uint8_t);
+}
 
 void BodyRequest::Serialize(uint8_t *ptr) const {
-  assert(ptr);
-  ptr[0] = RequestSize;
-  ptr[1] = ResponceSize;
+	assert(ptr);
+	ptr[0] = RequestSize;
+	ptr[1] = ResponceSize;
 
-  memcpy(ptr + 2, Data, RequestSize);
+	memcpy(ptr + 2, Data, RequestSize);
 }
 
 BodyRequest BodyRequest::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
-  BodyRequest request;
+	assert(ptr);
+	BodyRequest request;
 
-  request.RequestSize = ptr[0];
-  request.ResponceSize = ptr[1];
+	request.RequestSize = ptr[0];
+	request.ResponceSize = ptr[1];
 
-  request.Data = ptr + 2;
+	request.Data = ptr + 2;
 
-  return request;
+	return request;
 }
 
 size_t BodyRequest::GetPackedSize() const {
-  return (2 + RequestSize) * sizeof(uint8_t);
+	return (2 + RequestSize) * sizeof(uint8_t);
 }
 
 void BodyResponce::Serialize(uint8_t *ptr) const {
-  assert(ptr);
-  ptr[0] = ResponceSize;
-  memcpy(ptr + 1, Data, ResponceSize);
+	assert(ptr);
+	ptr[0] = ResponceSize;
+	memcpy(ptr + 1, Data, ResponceSize);
 }
 
 BodyResponce BodyResponce::Deserialize(const uint8_t *ptr) {
-  assert(ptr);
-  BodyResponce responce;
+	assert(ptr);
+	BodyResponce responce;
 
-  responce.ResponceSize = ptr[0];
-  responce.Data = ptr + 1;
+	responce.ResponceSize = ptr[0];
+	responce.Data = ptr + 1;
 
-  return responce;
+	return responce;
 }
 
 size_t BodyResponce::GetPackedSize() const {
-  return (1 + ResponceSize) * sizeof(uint8_t);
+	return (1 + ResponceSize) * sizeof(uint8_t);
 }
 
-void BodyQueueRequest::Serialize(uint8_t* ptr) const {
-  assert(ptr);
-  *ptr = Pause;
-  Request.Serialize(ptr + 1);
+void BodyQueueRequest::Serialize(uint8_t *ptr) const {
+	assert(ptr);
+	*ptr = Pause;
+	Request.Serialize(ptr + 1);
 }
 
-BodyQueueRequest BodyQueueRequest::Deserialize(const uint8_t* ptr) {
-  BodyQueueRequest request;
-  request.Pause = *ptr;
+BodyQueueRequest BodyQueueRequest::Deserialize(const uint8_t *ptr) {
+	BodyQueueRequest request;
+	request.Pause = *ptr;
 
-  request.Request = BodyRequest::Deserialize(ptr + 1);
+	request.Request = BodyRequest::Deserialize(ptr + 1);
 
-  return request;
+	return request;
 }
 
 size_t BodyQueueRequest::GetPackedSize() const {
-  return 1 + Request.GetPackedSize();
+	return 1 + Request.GetPackedSize();
 }
 
 } // namespace Messages
