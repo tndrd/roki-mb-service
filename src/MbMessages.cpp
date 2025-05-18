@@ -200,11 +200,11 @@ void BodyQueueInfo::Serialize(uint8_t *ptr) const {
 	*reinterpret_cast<uint16_t*>(ptr) = Capacity;
 	ptr += sizeof(uint16_t);
 
-	*reinterpret_cast<uint16_t*>(ptr) = NSent;
-	ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint32_t*>(ptr) = NSent;
+	ptr += sizeof(uint32_t);
 
-	*reinterpret_cast<uint16_t*>(ptr) = NResends;
-	ptr += sizeof(uint16_t);
+	*reinterpret_cast<uint32_t*>(ptr) = NResends;
+	ptr += sizeof(uint32_t);
 }
 
 BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
@@ -218,17 +218,17 @@ BodyQueueInfo BodyQueueInfo::Deserialize(const uint8_t *ptr) {
 	info.Capacity = *reinterpret_cast<const uint16_t*>(ptr);
 	ptr += sizeof(uint16_t);
 
-	info.NSent= *reinterpret_cast<const uint16_t*>(ptr);
-	ptr += sizeof(uint16_t);
+	info.NSent= *reinterpret_cast<const uint32_t*>(ptr);
+	ptr += sizeof(uint32_t);
 
-	info.NResends = *reinterpret_cast<const uint16_t*>(ptr);
-	ptr += sizeof(uint16_t);
+	info.NResends = *reinterpret_cast<const uint32_t*>(ptr);
+	ptr += sizeof(uint32_t);
 
 	return info;
 }
 
 size_t BodyQueueInfo::GetPackedSize() const {
-	return 4 * sizeof(uint16_t);
+	return 2 * sizeof(uint16_t) + 2 * sizeof(uint32_t);
 }
 
 void PeriodMs::Serialize(uint8_t *ptr) const {
